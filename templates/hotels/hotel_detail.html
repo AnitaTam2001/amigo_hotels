@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ hotel.name }}</h1>
+<p class="lead">{{ hotel.location }}</p>
+
+{% if hotel.image_url %}
+<img src="{{ hotel.image_url }}" class="img-fluid rounded mb-4" alt="{{ hotel.name }}">
+{% endif %}
+
+<p>{{ hotel.description }}</p>
+<p><strong>Price: ${{ hotel.price_per_night }} per night</strong></p>
+
+<a href="/hotels/" class="btn btn-secondary">← Back to Hotels</a>
+<a href="/" class="btn btn-primary">🏠 Back to Home</a>
+{% endblock %}

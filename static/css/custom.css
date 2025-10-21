@@ -1,0 +1,139 @@
+/* Amigo Hotels Custom Styles */
+
+/* Primary Colors */
+:root {
+    --amigo-primary: #2E86AB;
+    --amigo-secondary: #A23B72;
+    --amigo-accent: #F18F01;
+    --amigo-success: #2E8B57;
+}
+
+/* Navbar Styling */
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(46, 134, 171, 0.8), rgba(46, 134, 171, 0.8)), 
+                url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 100px 0;
+    text-align: center;
+}
+
+/* Hotel Cards */
+.hotel-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.hotel-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--amigo-primary);
+    border-color: var(--amigo-primary);
+}
+
+.btn-primary:hover {
+    background-color: #257194;
+    border-color: #257194;
+}
+
+.btn-success {
+    background-color: var(--amigo-success);
+    border-color: var(--amigo-success);
+}
+
+/* Price Styling */
+.price {
+    color: var(--amigo-accent);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Footer */
+footer {
+    margin-top: auto;
+}
+
+/* Responsive Images */
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Loading Animation */
+.loading {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid var(--amigo-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Alert Styles */
+.alert-amigo {
+    background-color: var(--amigo-primary);
+    color: white;
+    border: none;
+}
+
+/* Badge Styles */
+.badge-amigo {
+    background-color: var(--amigo-accent);
+    color: white;
+}
+
+/* Text Colors */
+.text-amigo-primary {
+    color: var(--amigo-primary) !important;
+}
+
+.text-amigo-accent {
+    color: var(--amigo-accent) !important;
+}
+
+/* Background Colors */
+.bg-amigo-primary {
+    background-color: var(--amigo-primary) !important;
+}
+
+.bg-amigo-accent {
+    background-color: var(--amigo-accent) !important;
+}
+
+/* Form Styling */
+.form-control:focus {
+    border-color: var(--amigo-primary);
+    box-shadow: 0 0 0 0.2rem rgba(46, 134, 171, 0.25);
+}
+
+/* Card Header Styling */
+.card-header {
+    font-weight: 600;
+}
+
+/* Success States */
+.text-success {
+    color: var(--amigo-success) !important;
+}
+
+.bg-success {
+    background-color: var(--amigo-success) !important;
+}
