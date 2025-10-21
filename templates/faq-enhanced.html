@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h1 class="text-center mb-4">Frequently Asked Questions</h1>
+            <p class="lead text-center mb-5">Find answers to common questions about Amigo Hotels</p>
+
+            <!-- Quick Navigation Menu -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h6 class="card-title">Quick Navigation</h6>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button class="btn btn-outline-primary btn-sm scroll-to-section" data-section="top">
+                            <i class="fas fa-arrow-up"></i> Top
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm scroll-to-section" data-section="booking">
+                            <i class="fas fa-calendar-check"></i> Booking
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm scroll-to-section" data-section="amenities">
+                            <i class="fas fa-swimming-pool"></i> Amenities
+                        </button>
+                        <button class="btn btn-outline-primary btn-sm scroll-to-section" data-section="contact">
+                            <i class="fas fa-headset"></i> Contact
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ Content -->
+            <div id="faq-content">
+                <!-- Booking Section -->
+                <div class="section-anchor" id="booking"></div>
+                <h3 class="mb-3 text-primary"><i class="fas fa-calendar-alt me-2"></i>Booking & Reservations</h3>
+                
+                {% for faq in faqs|slice:":3" %}
+                <div class="card mb-3 faq-item">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{ faq.question }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0">{{ faq.answer }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- Amenities Section -->
+                <div class="section-anchor" id="amenities"></div>
+                <h3 class="mb-3 mt-5 text-primary"><i class="fas fa-star me-2"></i>Amenities & Services</h3>
+                
+                {% for faq in faqs|slice:"3:7" %}
+                <div class="card mb-3 faq-item">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{ faq.question }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0">{{ faq.answer }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+
+                <!-- General Section -->
+                <div class="section-anchor" id="general"></div>
+                <h3 class="mb-3 mt-5 text-primary"><i class="fas fa-info-circle me-2"></i>General Information</h3>
+                
+                {% for faq in faqs|slice:"7:" %}
+                <div class="card mb-3 faq-item">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{ faq.question }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0">{{ faq.answer }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Contact Section -->
+            <div class="section-anchor" id="contact"></div>
+            <div class="card mt-5">
+                <div class="card-body text-center">
+                    <h5>Still Need Help?</h5>
+                    <p>Contact our friendly Amigo team!</p>
+                    <a href="{% url 'contact' %}" class="btn btn-primary">
+                        <i class="fas fa-headset"></i> Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scroll Buttons -->
+<button id="scrollToTop" class="scroll-btn scroll-top" title="Scroll to top">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<button id="scrollToBottom" class="scroll-btn scroll-bottom" title="Scroll to bottom">
+    <i class="fas fa-arrow-down"></i>
+</button>
+
+<!-- Progress Indicator -->
+<div id="scrollProgress" class="scroll-progress">
+    <div class="progress-bar"></div>
+</div>
+
+<style>
+/* Scroll Button Styles */
+.scroll-btn {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    background-color: #2E86AB;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-btn:hover {
+    background-color: #257194;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+.scroll-btn.show {
+    display: flex;
+}
+
+.scroll-top {
+    bottom: 100px;
+    right: 30px;
+}
+
+.scroll-bottom {
+    bottom: 30px;
+    right: 30px;
+}
+
+/* Progress Bar */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: #f0f0f0;
+    z-index: 1001;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #2E86AB, #A23B72);
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+/* Section Anchors */
+.section-anchor {
+    position: relative;
+    top: -80px; /* Offset for fixed header */
+}
+
+/* FAQ Styles */
+.faq-item {
+    border-left: 4px solid #2E86AB;
+    transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+    border-left-color: #A23B72;
+    transform: translateX(5px);
+}
+
+/* Smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .scroll-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+    
+    .scroll-top {
+        bottom: 90px;
+        right: 20px;
+    }
+    
+    .scroll-bottom {
+        bottom: 20px;
+        right: 20px;
+    }
+}
+</style>
+
+<script>
+// Scroll to Top
+document.getElementById('scrollToTop').addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Scroll to Bottom
+document.getElementById('scrollToBottom').addEventListener('click', function() {
+    window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+});
+
+// Section Navigation
+document.querySelectorAll('.scroll-to-section').forEach(button => {
+    button.addEventListener('click', function() {
+        const section = this.getAttribute('data-section');
+        let targetElement;
+        
+        switch(section) {
+            case 'top':
+                targetElement = document.body;
+                break;
+            case 'booking':
+                targetElement = document.getElementById('booking');
+                break;
+            case 'amenities':
+                targetElement = document.getElementById('amenities');
+                break;
+            case 'contact':
+                targetElement = document.getElementById('contact');
+                break;
+            default:
+                targetElement = document.body;
+        }
+        
+        if (targetElement) {
+            const offsetTop = targetElement.offsetTop - 80; // Adjust for header
+            window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+    });
+});
+
+// Scroll Progress
+window.addEventListener('scroll', function() {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    document.querySelector('.progress-bar').style.width = scrolled + '%';
+    
+    // Show/hide scroll buttons
+    const scrollTopBtn = document.getElementById('scrollToTop');
+    const scrollBottomBtn = document.getElementById('scrollToBottom');
+    
+    if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('show');
+    } else {
+        scrollTopBtn.classList.remove('show');
+    }
+    
+    const isAtBottom = window.innerHeight + window.pageYOffset >= document.body.offsetHeight - 100;
+    if (!isAtBottom) {
+        scrollBottomBtn.classList.add('show');
+    } else {
+        scrollBottomBtn.classList.remove('show');
+    }
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    // Buttons start hidden, will show on scroll
+});
+</script>
+{% endblock %}

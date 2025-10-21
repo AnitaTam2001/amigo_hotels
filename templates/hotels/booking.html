@@ -5,110 +5,15 @@
     <div class="col-md-8">
         <div class="card">
             <div class="card-header bg-primary text-white">
-                <h4 class="mb-0">Book Your Stay at {{ hotel.name }}</h4>
+                <h4 class="mb-0">Book {{ hotel.name }}</h4>
             </div>
             <div class="card-body">
-                <!-- Hotel Info -->
-                <div class="row mb-4">
-                    <div class="col-md-4">
-                        {% if hotel.image_url %}
-                        <img src="{{ hotel.image_url }}" class="img-fluid rounded" alt="{{ hotel.name }}">
-                        {% endif %}
-                    </div>
-                    <div class="col-md-8">
-                        <h5>{{ hotel.name }}</h5>
-                        <p class="text-muted">{{ hotel.location }}</p>
-                        <p class="h4 text-success">${{ hotel.price_per_night }} per night</p>
-                    </div>
-                </div>
-
-                <!-- Booking Form -->
-                <form method="post">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Check-in Date</label>
-                                <input type="date" class="form-control" name="check_in" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Check-out Date</label>
-                                <input type="date" class="form-control" name="check_out" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label class="form-label">Number of Guests</label>
-                        <select class="form-select" name="guests" required>
-                            <option value="1">1 Guest</option>
-                            <option value="2" selected>2 Guests</option>
-                            <option value="3">3 Guests</option>
-                            <option value="4">4 Guests</option>
-                        </select>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Full Name</label>
-                                <input type="text" class="form-control" name="customer_name" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label class="form-label">Email Address</label>
-                                <input type="email" class="form-control" name="customer_email" required>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Price Summary -->
-                    <div class="card bg-light">
-                        <div class="card-body">
-                            <h6>Price Summary</h6>
-                            <div class="d-flex justify-content-between">
-                                <span>${{ hotel.price_per_night }} x <span id="nights">1</span> nights</span>
-                                <span id="total_price">${{ hotel.price_per_night }}</span>
-                            </div>
-                            <hr>
-                            <div class="d-flex justify-content-between fw-bold">
-                                <span>Total</span>
-                                <span id="final_price">${{ hotel.price_per_night }}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-grid gap-2 mt-4">
-                        <button type="submit" class="btn btn-success btn-lg">
-                            Confirm Booking
-                        </button>
-                    </div>
-                </form>
+                <p><strong>Location:</strong> {{ hotel.location }}</p>
+                <p><strong>Price:</strong> ${{ hotel.price_per_night }}/night</p>
+                <p>Booking form would go here...</p>
+                <a href="/booking-success/1/" class="btn btn-success">Confirm Booking</a>
             </div>
         </div>
     </div>
 </div>
-
-<script>
-    function calculatePrice() {
-        const checkIn = new Date(document.querySelector('input[name="check_in"]').value);
-        const checkOut = new Date(document.querySelector('input[name="check_out"]').value);
-        const pricePerNight = {{ hotel.price_per_night }};
-        
-        if (checkIn && checkOut && checkOut > checkIn) {
-            const nights = Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24));
-            const totalPrice = pricePerNight * nights;
-            
-            document.getElementById('nights').textContent = nights;
-            document.getElementById('total_price').textContent = '$' + totalPrice.toFixed(2);
-            document.getElementById('final_price').textContent = '$' + totalPrice.toFixed(2);
-        }
-    }
-    
-    document.querySelector('input[name="check_in"]').addEventListener('change', calculatePrice);
-    document.querySelector('input[name="check_out"]').addEventListener('change', calculatePrice);
-</script>
 {% endblock %}

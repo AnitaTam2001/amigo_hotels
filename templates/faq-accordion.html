@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="text-center mb-4">Frequently Asked Questions</h1>
+            <p class="lead text-center mb-5">Find answers to common questions about Amigo Hotels</p>
+
+            <!-- Working Accordion -->
+            <div class="accordion" id="faqAccordion">
+                {% for faq in faqs %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" 
+                                type="button" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#faq{{ forloop.counter }}" 
+                                aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}" 
+                                aria-controls="faq{{ forloop.counter }}">
+                            <strong>{{ faq.question }}</strong>
+                        </button>
+                    </h2>
+                    <div id="faq{{ forloop.counter }}" 
+                         class="accordion-collapse collapse {% if forloop.first %}show{% endif %}" 
+                         data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            {{ faq.answer }}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Still Need Help Section -->
+            <div class="card mt-5">
+                <div class="card-body text-center">
+                    <h5>Still have questions?</h5>
+                    <p class="mb-3">Our friendly team is here to help you!</p>
+                    <div class="d-grid gap-2 d-md-block">
+                        <a href="{% url 'contact' %}" class="btn btn-primary me-2">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </a>
+                        <a href="tel:+525512345678" class="btn btn-outline-primary">
+                            <i class="fas fa-phone"></i> Call Us: +52 55 1234 5678
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.accordion-button:not(.collapsed) {
+    background-color: #2E86AB;
+    color: white;
+}
+
+.accordion-button:focus {
+    border-color: #2E86AB;
+    box-shadow: 0 0 0 0.2rem rgba(46, 134, 171, 0.25);
+}
+
+.accordion-body {
+    max-height: 300px;
+    overflow-y: auto;
+}
+</style>
+{% endblock %}

@@ -2,8 +2,6 @@
 
 {% block content %}
 <h1>All Amigo Hotels</h1>
-<p class="lead">Discover our friendly hotels across Mexico</p>
-
 <div class="row">
     {% for hotel in hotels %}
     <div class="col-md-6 mb-4">
@@ -13,7 +11,7 @@
             {% endif %}
             <div class="card-body">
                 <h5 class="card-title">{{ hotel.name }}</h5>
-                <p class="card-text text-muted">{{ hotel.location }}</p>
+                <p class="card-text">{{ hotel.location }}</p>
                 <p class="card-text">{{ hotel.description }}</p>
                 <p class="card-text"><strong>${{ hotel.price_per_night }}/night</strong></p>
                 <a href="/hotels/{{ hotel.id }}/" class="btn btn-primary">View Details</a>

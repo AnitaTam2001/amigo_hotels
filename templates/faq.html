@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center mb-4">Frequently Asked Questions</h1>
+    
+    {% for faq in faqs %}
+    <div class="card mb-3">
+        <div class="card-header">
+            <h5 class="mb-0">{{ faq.question }}</h5>
+        </div>
+        <div class="card-body">
+            <p class="mb-0">{{ faq.answer }}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- SIMPLE RED BUTTONS FOR TESTING -->
+<a href="#" style="
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    text-decoration: none;
+    z-index: 9999;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">↑</a>
+
+<a href="#bottom" style="
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: blue;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    text-decoration: none;
+    z-index: 9999;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+">↓</a>
+
+<div id="bottom"></div>
+{% endblock %}

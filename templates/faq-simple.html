@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <h1 class="text-center mb-4">Frequently Asked Questions</h1>
+            <p class="lead text-center mb-5">Find answers to common questions about Amigo Hotels</p>
+
+            <!-- FAQ Content -->
+            <div id="faq-content">
+                {% for faq in faqs %}
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="mb-0 text-primary">
+                            <i class="fas fa-question-circle me-2"></i>
+                            {{ faq.question }}
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="mb-0">{{ faq.answer }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Contact Section -->
+            <div class="card mt-5" id="bottom-section">
+                <div class="card-body text-center">
+                    <h5>Still Need Help?</h5>
+                    <p>Contact our friendly Amigo team!</p>
+                    <a href="{% url 'contact' %}" class="btn btn-primary">
+                        <i class="fas fa-headset"></i> Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Simple Scroll Buttons -->
+<a href="#top" class="scroll-btn top-btn">
+    ↑
+</a>
+
+<a href="#bottom-section" class="scroll-btn bottom-btn">
+    ↓
+</a>
+
+<style>
+.scroll-btn {
+    position: fixed;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #2E86AB;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.scroll-btn:hover {
+    background-color: #257194;
+    transform: scale(1.1);
+    color: white;
+    text-decoration: none;
+}
+
+.top-btn {
+    bottom: 100px;
+    right: 30px;
+}
+
+.bottom-btn {
+    bottom: 30px;
+    right: 30px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+</style>
+{% endblock %}

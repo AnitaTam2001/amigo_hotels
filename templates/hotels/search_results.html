@@ -1,176 +1,30 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <!-- Search Header -->
-    <div class="row mb-4">
-        <div class="col-12">
-            <h2>Search Results</h2>
-            
-            {% if query %}
-            <p class="text-muted">
-                Showing results for "<strong>{{ query }}</strong>"
-                <span class="badge bg-primary ms-2">{{ hotels.count }} hotel{% if hotels.count != 1 %}s{% endif %} found</span>
-            </p>
-            {% else %}
-            <p class="text-muted">Search our Amigo Hotels collection</p>
+<h2>Search Results</h2>
+
+{% if query %}
+<p>Searching for: "{{ query }}"</p>
+{% endif %}
+
+<div class="row">
+    {% for hotel in hotels %}
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            {% if hotel.image_url %}
+            <img src="{{ hotel.image_url }}" class="card-img-top" alt="{{ hotel.name }}">
             {% endif %}
-            
-            <!-- Search Form -->
-            <div class="card mb-4">
-                <div class="card-body">
-                    <form action="{% url 'search_hotels' %}" method="get" class="row g-3">
-                        <div class="col-md-10">
-                            <input type="text" name="q" class="form-control" 
-                                   placeholder="Search hotels by name, location, or description..." 
-                                   value="{{ query }}"
-                                   required>
-                        </div>
-                        <div class="col-md-2">
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="fas fa-search"></i> Search
-                            </button>
-                        </div>
-                    </form>
-                </div>
+            <div class="card-body">
+                <h5 class="card-title">{{ hotel.name }}</h5>
+                <p class="card-text">{{ hotel.location }}</p>
+                <p class="card-text">{{ hotel.description }}</p>
+                <p class="card-text"><strong>${{ hotel.price_per_night }}/night</strong></p>
+                <a href="/hotels/{{ hotel.id }}/" class="btn btn-primary">View Details</a>
             </div>
         </div>
     </div>
-
-    <!-- Results -->
-    <div class="row">
-        {% if hotels %}
-            {% for hotel in hotels %}
-            <div class="col-lg-6 mb-4">
-                <div class="card hotel-card h-100">
-                    <div class="row g-0 h-100">
-                        <div class="col-md-5">
-                            {% if hotel.image_url %}
-                            <img src="{{ hotel.image_url }}" class="img-fluid rounded-start h-100" 
-                                 alt="{{ hotel.name }}" style="object-fit: cover;">
-                            {% else %}
-                            <div class="bg-light h-100 d-flex align-items-center justify-content-center">
-                                <span class="text-muted">No Image</span>
-                            </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-md-7">
-                            <div class="card-body d-flex flex-column h-100">
-                                <h5 class="card-title">{{ hotel.name }}</h5>
-                                <p class="card-text text-muted">
-                                    <i class="fas fa-map-marker-alt"></i> {{ hotel.location }}
-                                </p>
-                                <p class="card-text flex-grow-1">{{ hotel.description|truncatewords:20 }}</p>
-                                <div class="mt-auto">
-                                    <div class="d-flex justify-content-between align-items-center mb-2">
-                                        <span class="h5 text-success mb-0">${{ hotel.price_per_night }}</span>
-                                        <small class="text-muted">per night</small>
-                                    </div>
-                                    <div class="d-grid">
-                                        <a href="{% url 'hotel_detail' hotel.id %}" class="btn btn-primary">
-                                            <i class="fas fa-info-circle"></i> View Details
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        {% else %}
-            <!-- No Results -->
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body text-center py-5">
-                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
-                        <h4>No hotels found</h4>
-                        <p class="text-muted mb-4">
-                            {% if query %}
-                            We couldn't find any hotels matching "{{ query }}".
-                            {% else %}
-                            Try searching for hotels by name, location, or description.
-                            {% endif %}
-                        </p>
-                        
-                        <div class="row justify-content-center">
-                            <div class="col-md-8">
-                                <h6>Search Tips:</h6>
-                                <div class="row text-muted">
-                                    <div class="col-md-6">
-                                        <ul class="list-unstyled">
-                                            <li><i class="fas fa-check text-success"></i> Check your spelling</li>
-                                            <li><i class="fas fa-check text-success"></i> Try more general keywords</li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <ul class="list-unstyled">
-                                            <li><i class="fas fa-check text-success"></i> Search by city or country</li>
-                                            <li><i class="fas fa-check text-success"></i> Browse all hotels</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="mt-4">
-                            <a href="{% url 'hotel_list' %}" class="btn btn-primary me-2">
-                                <i class="fas fa-hotel"></i> Browse All Hotels
-                            </a>
-                            <a href="{% url 'home' %}" class="btn btn-outline-primary">
-                                <i class="fas fa-home"></i> Back to Home
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    </div>
-
-    <!-- Back to Hotels -->
-    {% if hotels %}
-    <div class="row mt-4">
-        <div class="col-12 text-center">
-            <a href="{% url 'hotel_list' %}" class="btn btn-outline-primary me-2">
-                <i class="fas fa-arrow-left"></i> Browse All Hotels
-            </a>
-            <a href="{% url 'home' %}" class="btn btn-outline-secondary">
-                <i class="fas fa-home"></i> Back to Home
-            </a>
-        </div>
-    </div>
-    {% endif %}
+    {% empty %}
+    <p>No hotels found.</p>
+    {% endfor %}
 </div>
-
-<style>
-.hotel-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: none;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-
-.hotel-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-}
-
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-}
-
-.text-success {
-    color: #2E8B57 !important;
-}
-
-.btn-primary {
-    background-color: #2E86AB;
-    border-color: #2E86AB;
-}
-
-.btn-primary:hover {
-    background-color: #257194;
-    border-color: #257194;
-}
-</style>
 {% endblock %}
